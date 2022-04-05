@@ -3,4 +3,13 @@
   font-weight: normal;
   color: #fff;
   min-width: 320px;
+  max-width: 918px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 918px) {
+  .page {
+    max-width: 880px;
+  }
 }

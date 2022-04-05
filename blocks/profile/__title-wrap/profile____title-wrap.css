@@ -1,0 +1,12 @@
+.profile__title-wrap {
+  position: relative;
+  padding: 0 28px;
+  display: inline-flex;
+}
+
+@media screen and (min-width: 918px) {
+  .profile__title-wrap {
+    padding: 0;
+    align-items: baseline;
+  }
+}

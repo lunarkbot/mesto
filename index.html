@@ -10,14 +10,91 @@
 </head>
 <body class="global">
   <div class="page">
-    <header>
-
+    <header class="header">
+      <div class="header__logo"></div>
     </header>
-    <main>
+    <main class="content">
+      <section class="profile">
+        <img class="profile__avatar" src="./images/avatar.png" alt="Аватар">
+        <div class="profile__info">
+          <div class="profile__title-wrap">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button"></button>
+          </div>
+          <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+      <section class="photo-grid" aria-label="Секция с фотографиями">
+        <figure class="photo-grid__item">
+          <img src="./images/frankfurt.jpg"
+               class="photo-grid__photo"
+               loading="lazy"
+               alt="Франкфурт-на-Майне">
+          <figcaption class="photo-grid__caption">
+            <h2 class="photo-grid__title">Франкфурт-на-Майне</h2>
+            <button class="photo-grid__like-button"></button>
+          </figcaption>
+        </figure>
 
+        <figure class="photo-grid__item">
+          <img src="./images/lviv.jpg"
+               class="photo-grid__photo"
+               loading="lazy"
+               alt="Львов">
+          <figcaption class="photo-grid__caption">
+            <h2 class="photo-grid__title">Львов</h2>
+            <button class="photo-grid__like-button"></button>
+          </figcaption>
+        </figure>
+
+        <figure class="photo-grid__item">
+          <img src="./images/moscow.jpg"
+               class="photo-grid__photo"
+               loading="lazy"
+               alt="Москва">
+          <figcaption class="photo-grid__caption">
+            <h2 class="photo-grid__title">Москва</h2>
+            <button class="photo-grid__like-button"></button>
+          </figcaption>
+        </figure>
+
+        <figure class="photo-grid__item">
+          <img src="./images/minsk.jpg"
+               class="photo-grid__photo"
+               loading="lazy"
+               alt="Минск">
+          <figcaption class="photo-grid__caption">
+            <h2 class="photo-grid__title">Минск</h2>
+            <button class="photo-grid__like-button"></button>
+          </figcaption>
+        </figure>
+
+        <figure class="photo-grid__item">
+          <img src="./images/saint-p.jpg"
+               class="photo-grid__photo"
+               loading="lazy"
+               alt="Санкт-Петербург">
+          <figcaption class="photo-grid__caption">
+            <h2 class="photo-grid__title">Санкт-Петербург</h2>
+            <button class="photo-grid__like-button"></button>
+          </figcaption>
+        </figure>
+
+        <figure class="photo-grid__item">
+          <img src="./images/arhiz.jpg"
+               class="photo-grid__photo"
+               loading="lazy"
+               alt="Карачаево-Черкесия">
+          <figcaption class="photo-grid__caption">
+            <h2 class="photo-grid__title">Карачаево-Черкесия</h2>
+            <button class="photo-grid__like-button"></button>
+          </figcaption>
+        </figure>
+      </section>
     </main>
-    <footer>
-
+    <footer class="footer">
+      <p class="footer__copyright">© 2022. Sergej Bopp</p>
     </footer>
   </div>
 </body>

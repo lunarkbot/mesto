@@ -1,0 +1,11 @@
+.profile {
+  margin-bottom: 53px;
+}
+
+@media screen and (min-width: 918px) {
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+}

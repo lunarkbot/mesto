@@ -1,0 +1,10 @@
+.content {
+  padding: 0 19px;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 918px) {
+  .content {
+    padding: 0;
+  }
+}

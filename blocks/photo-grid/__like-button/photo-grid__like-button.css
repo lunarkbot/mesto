@@ -1,0 +1,20 @@
+.photo-grid__like-button {
+  width: 22px;
+  height: 19px;
+  background-color: transparent;
+  background-image: url('../../../images/heart.svg');
+  background-size: cover;
+  border: 0;
+  cursor: pointer;
+  transition: opacity 200ms;
+}
+
+.photo-grid__like-button:hover {
+  opacity: .6;
+}
+
+.photo-grid__like-button:active {
+  opacity: 1;
+  transition: opacity 0ms;
+  background-image: url('../../../images/heart-black.svg');
+}
