@@ -17,11 +17,11 @@
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.png" alt="Аватар">
         <div class="profile__info">
-          <div class="profile__title-wrap">
-            <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <div class="profile__name-wrap">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button"></button>
           </div>
-          <p class="profile__subtitle">Исследователь океана</p>
+          <p class="profile__job">Исследователь океана</p>
         </div>
         <button class="profile__add-button"></button>
       </section>
@@ -96,6 +96,24 @@
     <footer class="footer">
       <p class="footer__copyright">© 2022. Sergej Bopp</p>
     </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <button class="popup__close-button"></button>
+        <form>
+          <input type="text"
+                 placeholder="Имя"
+                 class="popup__text-input popup__text-input_type_name">
+          <input type="text"
+                 placeholder="О себе"
+                 class="popup__text-input popup__text-input_type_job">
+          <input type="submit"
+                 class="popup__submit-button"
+                 value="Сохранить">
+        </form>
+      </div>
+    </div>
   </div>
+<script src="./blocks/popup/popup.js"></script>
 </body>
 </html>

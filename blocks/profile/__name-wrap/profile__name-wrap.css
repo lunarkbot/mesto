@@ -1,11 +1,11 @@
-.profile__title-wrap {
+.profile__name-wrap {
   position: relative;
   padding: 0 28px;
   display: inline-flex;
 }
 
 @media screen and (min-width: 918px) {
-  .profile__title-wrap {
+  .profile__name-wrap {
     padding: 0;
     align-items: baseline;
   }

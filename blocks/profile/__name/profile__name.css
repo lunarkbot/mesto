@@ -1,15 +1,18 @@
-.profile__title {
+.profile__name {
   margin: 0 auto 14px;
   font-size: 27px;
   line-height: 1.2;
   font-weight: 500;
   color: #fff;
+  text-align: center;
 }
 
 @media screen and (min-width: 918px) {
-  .profile__title {
+  .profile__name {
     line-height: 1.15;
     font-size: 42px;
     margin-bottom: 16px;
+    max-width: 500px;
+    text-align: left;
   }
 }
