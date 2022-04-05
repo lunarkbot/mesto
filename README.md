@@ -1,17 +1,24 @@
-# Проект: Место
+# Проект: Mesto <sup>Russia</sup>
 
-### Обзор
+### В проекте используется
 
-* Figma
-* Картинки
+* HTML/CSS
+    * Семантическая и адаптивная верстка
+    * Flex
+    * GRID
+* BEM Nested
+* Figma (макет можно посмотреть [здесь](https://www.figma.com/proto/FICtgZMj34H0CTRBtxqziw/JavaScript.-Sprint-4-(Copy)?node-id=28212%3A269))
+* GIT
+* JavaScript (Basic)
 
-**Figma**
+### О проекте
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+Проект сверстан по макету Figma и рассчитан на разрешения от 320 до 1280px+
 
-**Картинки**
+### Демо
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
+Посмотреть проект можно на [GitHub Pages](https://mesto.z-style.org)
 
-Удачи!
+---
+
+Проект подготовлен в рамках задания на платформе [Яндекс.Практикум](https://practicum.yandex.ru/)
