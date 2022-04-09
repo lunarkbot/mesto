@@ -20,78 +20,80 @@
         <div class="profile__info">
           <div class="profile__name-wrap">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
+            <button class="profile__edit-button" type="button"></button>
           </div>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section class="photo-grid" aria-label="Секция с фотографиями">
-        <figure class="photo-grid__item">
-          <img src="./images/frankfurt.jpg"
-               class="photo-grid__photo"
-               loading="lazy"
-               alt="Франкфурт-на-Майне">
-          <figcaption class="photo-grid__caption">
-            <h2 class="photo-grid__title">Франкфурт-на-Майне</h2>
-            <button class="photo-grid__like-button"></button>
-          </figcaption>
-        </figure>
+        <ul class="photo-grid__list">
+          <li class="photo-grid__item">
+            <img src="./images/frankfurt.jpg"
+                 class="photo-grid__photo"
+                 loading="lazy"
+                 alt="Франкфурт-на-Майне">
+            <div class="photo-grid__caption">
+              <h2 class="photo-grid__title">Франкфурт-на-Майне</h2>
+              <button class="photo-grid__like-button" type="button"></button>
+            </div>
+          </li>
 
-        <figure class="photo-grid__item">
-          <img src="./images/lviv.jpg"
-               class="photo-grid__photo"
-               loading="lazy"
-               alt="Львов">
-          <figcaption class="photo-grid__caption">
-            <h2 class="photo-grid__title">Львов</h2>
-            <button class="photo-grid__like-button"></button>
-          </figcaption>
-        </figure>
+          <li class="photo-grid__item">
+            <img src="./images/lviv.jpg"
+                 class="photo-grid__photo"
+                 loading="lazy"
+                 alt="Львов">
+            <div class="photo-grid__caption">
+              <h2 class="photo-grid__title">Львов</h2>
+              <button class="photo-grid__like-button" type="button"></button>
+            </div>
+          </li>
 
-        <figure class="photo-grid__item">
-          <img src="./images/moscow.jpg"
-               class="photo-grid__photo"
-               loading="lazy"
-               alt="Москва">
-          <figcaption class="photo-grid__caption">
-            <h2 class="photo-grid__title">Москва</h2>
-            <button class="photo-grid__like-button"></button>
-          </figcaption>
-        </figure>
+          <li class="photo-grid__item">
+            <img src="./images/moscow.jpg"
+                 class="photo-grid__photo"
+                 loading="lazy"
+                 alt="Москва">
+            <div class="photo-grid__caption">
+              <h2 class="photo-grid__title">Москва</h2>
+              <button class="photo-grid__like-button" type="button"></button>
+            </div>
+          </li>
 
-        <figure class="photo-grid__item">
-          <img src="./images/minsk.jpg"
-               class="photo-grid__photo"
-               loading="lazy"
-               alt="Минск">
-          <figcaption class="photo-grid__caption">
-            <h2 class="photo-grid__title">Минск</h2>
-            <button class="photo-grid__like-button"></button>
-          </figcaption>
-        </figure>
+          <li class="photo-grid__item">
+            <img src="./images/minsk.jpg"
+                 class="photo-grid__photo"
+                 loading="lazy"
+                 alt="Минск">
+            <div class="photo-grid__caption">
+              <h2 class="photo-grid__title">Минск</h2>
+              <button class="photo-grid__like-button" type="button"></button>
+            </div>
+          </li>
 
-        <figure class="photo-grid__item">
-          <img src="./images/saint-p.jpg"
-               class="photo-grid__photo"
-               loading="lazy"
-               alt="Санкт-Петербург">
-          <figcaption class="photo-grid__caption">
-            <h2 class="photo-grid__title">Санкт-Петербург</h2>
-            <button class="photo-grid__like-button"></button>
-          </figcaption>
-        </figure>
+          <li class="photo-grid__item">
+            <img src="./images/saint-p.jpg"
+                 class="photo-grid__photo"
+                 loading="lazy"
+                 alt="Санкт-Петербург">
+            <div class="photo-grid__caption">
+              <h2 class="photo-grid__title">Санкт-Петербург</h2>
+              <button class="photo-grid__like-button" type="button"></button>
+            </div>
+          </li>
 
-        <figure class="photo-grid__item">
-          <img src="./images/arhiz.jpg"
-               class="photo-grid__photo"
-               loading="lazy"
-               alt="Карачаево-Черкесия">
-          <figcaption class="photo-grid__caption">
-            <h2 class="photo-grid__title">Карачаево-Черкесия</h2>
-            <button class="photo-grid__like-button"></button>
-          </figcaption>
-        </figure>
+          <li class="photo-grid__item">
+            <img src="./images/arhiz.jpg"
+                 class="photo-grid__photo"
+                 loading="lazy"
+                 alt="Карачаево-Черкесия">
+            <div class="photo-grid__caption">
+              <h2 class="photo-grid__title">Карачаево-Черкесия</h2>
+              <button class="photo-grid__like-button" type="button"></button>
+            </div>
+          </li>
+        </ul>
       </section>
     </main>
     <footer class="footer">
@@ -100,12 +102,14 @@
     <div class="popup">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <button class="popup__close-button"></button>
+        <button class="popup__close-button" type="button"></button>
         <form>
           <input type="text"
+                 name="name"
                  placeholder="Имя"
                  class="popup__text-input popup__text-input_type_name">
           <input type="text"
+                 name="job"
                  placeholder="О себе"
                  class="popup__text-input popup__text-input_type_job">
           <input type="submit"
@@ -115,6 +119,6 @@
       </div>
     </div>
   </div>
-<script src="./blocks/popup/popup.js"></script>
+<script src="./scripts/index.js"></script>
 </body>
 </html>

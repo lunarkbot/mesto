@@ -3,11 +3,16 @@
   font-size: 14px;
   line-height: 1.2;
   text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 80vw;
 }
 
 @media screen and (min-width: 918px) {
   .profile__job {
     font-size: 18px;
     text-align: left;
+    max-width: 500px;
   }
 }
