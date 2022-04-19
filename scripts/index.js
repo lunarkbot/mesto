@@ -126,6 +126,11 @@ function renderCard(photoName, photoLink) {
     e.target.classList.toggle('photo-grid__like-button_checked');
   });
 
+  const trashButton = photoCard.querySelector('.photo-grid__trash-button');
+  trashButton.addEventListener('click', e => {
+    e.target.closest('.photo-grid__item').remove();
+  });
+
   photoGrid.prepend(photoCard);
 }
 
