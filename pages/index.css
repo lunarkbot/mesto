@@ -23,6 +23,7 @@
 @import url('../blocks/photo-grid/__list/photo-grid__list.css');
 @import url('../blocks/photo-grid/__item/photo-grid__item.css');
 @import url('../blocks/photo-grid/__photo/photo-grid__photo.css');
+@import url('../blocks/photo-grid/__photo-wrap/photo-grid__photo-wrap.css');
 @import url('../blocks/photo-grid/__caption/photo-grid__caption.css');
 @import url('../blocks/photo-grid/__title/photo-grid__title.css');
 @import url('../blocks/photo-grid/__like-button/photo-grid__like-button.css');
@@ -33,10 +34,16 @@
 
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/_opened/popup_opened.css');
+@import url('../blocks/popup/_animated/popup_animated.css');
 @import url('../blocks/popup/__title/popup__title.css');
 @import url('../blocks/popup/__close-button/popup__close-button.css');
 @import url('../blocks/popup/__container/popup__container.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_profile.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_add-image.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_open-image.css');
 @import url('../blocks/popup/__submit-button/popup__submit-button.css');
 @import url('../blocks/popup/__text-input/popup__text-input.css');
 @import url('../blocks/popup/__text-input/_type/popup__text-input_type_name.css');
 @import url('../blocks/popup/__text-input/_type/popup__text-input_type_job.css');
+@import url('../blocks/popup/__text-input/_type/popup__text-input_type_photo-name.css');
+@import url('../blocks/popup/__text-input/_type/popup__text-input_type_photo-link.css');
