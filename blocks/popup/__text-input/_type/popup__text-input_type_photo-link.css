@@ -1,0 +1,9 @@
+.popup__text-input_type_photo-link {
+  margin-bottom: 45px;
+}
+
+@media screen and (min-width: 918px) {
+  .popup__text-input_type_photo-link {
+    margin-bottom: 48px;
+  }
+}
