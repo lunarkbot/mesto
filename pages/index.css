@@ -27,6 +27,7 @@
 @import url('../blocks/photo-grid/__caption/photo-grid__caption.css');
 @import url('../blocks/photo-grid/__title/photo-grid__title.css');
 @import url('../blocks/photo-grid/__like-button/photo-grid__like-button.css');
+@import url('../blocks/photo-grid/__like-button/_checked/photo-grid__like-button_checked.css');
 
 
 @import url('../blocks/footer/footer.css');

@@ -121,6 +121,11 @@ function renderCard(photoName, photoLink) {
   photoCardImage.src = photoLink;
   photoCard.querySelector('.photo-grid__title').textContent = photoName;
 
+  const likeButton = photoCard.querySelector('.photo-grid__like-button');
+  likeButton.addEventListener('click', e => {
+    e.target.classList.toggle('photo-grid__like-button_checked');
+  });
+
   photoGrid.prepend(photoCard);
 }
 
