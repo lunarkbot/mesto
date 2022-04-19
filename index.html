@@ -48,9 +48,9 @@
                  name="job"
                  placeholder="О себе"
                  class="popup__text-input popup__text-input_type_job">
-          <button class="popup__close-button" type="button"></button>
           <button type="submit"
                  class="popup__submit-button">Сохранить</button>
+          <button class="popup__close-button" type="button"></button>
         </form>
       </div>
     </div>
@@ -58,7 +58,7 @@
 
     <!-- Popup: добавление фото -->
     <div class="popup">
-      <div class="popup__container popup__container_type_add-image">
+      <div class="popup__container popup__container_type_add-photo">
         <h2 class="popup__title">Новое место</h2>
         <form name="add-photo">
           <input type="text"
@@ -71,13 +71,27 @@
                  placeholder="Ссылка на картинку"
                  required
                  class="popup__text-input popup__text-input_type_photo-link">
-          <button class="popup__close-button" type="button"></button>
           <button type="submit"
                   class="popup__submit-button">Сохранить</button>
         </form>
+        <button class="popup__close-button" type="button"></button>
       </div>
     </div>
     <!-- / Popup: добавление фото -->
+
+    <!-- Popup: просмотр фото -->
+    <div class="popup">
+      <div class="popup__container popup__container_type_open-photo">
+        <figure class="popup__figure">
+          <img src="#"
+               alt=""
+               class="popup__photo">
+          <figcaption class="popup__caption"></figcaption>
+        </figure>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+    <!-- / Popup: просмотр фото -->
 
     <template id="photo-card">
       <li class="photo-grid__item">

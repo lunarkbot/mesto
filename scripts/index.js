@@ -72,7 +72,7 @@ editButton.addEventListener('click', () => {
 });
 
 addButton.addEventListener('click',() => {
-  showPopup('.popup__container_type_add-image');
+  showPopup('.popup__container_type_add-photo');
 });
 
 closeButtons.forEach(button => {
@@ -131,7 +131,33 @@ function renderCard(photoName, photoLink) {
     e.target.closest('.photo-grid__item').remove();
   });
 
+  photoCard.querySelector('.photo-grid__photo').addEventListener('click', setPhoto);
+
   photoGrid.prepend(photoCard);
+}
+
+
+/**
+ * Устанавливает в popup новое фото
+ *
+ * @param {object} evt Событие
+ */
+function setPhoto(evt) {
+  const popupPhoto = document.querySelector('.popup__photo');
+
+  // чтобы при ожидании загрузки фото не было видно предыдущего фото
+  // скроем его модификатором до момента полной загрузки
+  popupPhoto.addEventListener('load', evt => {
+    evt.target.classList.remove('popup__photo_hidden');
+  });
+
+  popupPhoto.classList.add('popup__photo_hidden');
+  popupPhoto.src = evt.target.src;
+  popupPhoto.alt = evt.target.alt;
+
+  document.querySelector('.popup__caption').textContent = evt.target.alt;
+
+  showPopup('.popup__container_type_open-photo');
 }
 
 

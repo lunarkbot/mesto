@@ -41,11 +41,15 @@
 @import url('../blocks/popup/__close-button/popup__close-button.css');
 @import url('../blocks/popup/__container/popup__container.css');
 @import url('../blocks/popup/__container/_type/popup__container_type_profile.css');
-@import url('../blocks/popup/__container/_type/popup__container_type_add-image.css');
-@import url('../blocks/popup/__container/_type/popup__container_type_open-image.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_add-photo.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_open-photo.css');
 @import url('../blocks/popup/__submit-button/popup__submit-button.css');
 @import url('../blocks/popup/__text-input/popup__text-input.css');
 @import url('../blocks/popup/__text-input/_type/popup__text-input_type_name.css');
 @import url('../blocks/popup/__text-input/_type/popup__text-input_type_job.css');
 @import url('../blocks/popup/__text-input/_type/popup__text-input_type_photo-name.css');
 @import url('../blocks/popup/__text-input/_type/popup__text-input_type_photo-link.css');
+@import url('../blocks/popup/__figure/popup__figure.css');
+@import url('../blocks/popup/__caption/popup__caption.css');
+@import url('../blocks/popup/__photo/popup__photo.css');
+@import url('../blocks/popup/__photo/_hidden/popup__photo_hidden.css');
