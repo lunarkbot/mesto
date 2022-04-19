@@ -121,7 +121,7 @@ function renderCard(photoName, photoLink) {
   photoCardImage.src = photoLink;
   photoCard.querySelector('.photo-grid__title').textContent = photoName;
 
-  photoGrid.append(photoCard);
+  photoGrid.prepend(photoCard);
 }
 
 
