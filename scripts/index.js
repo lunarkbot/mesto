@@ -1,3 +1,106 @@
+/**
+ * Обработка submit
+ *
+ * @param {object} evt Событие
+ */
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  const formName = evt.target.getAttribute('name');
+
+  if (formName === 'profile') {
+    profileName.textContent = nameInput.value;
+    profileJob.textContent = jobInput.value;
+  }
+  if (formName === 'add-photo') {
+    const photoName = evt.target.querySelector('.popup__text-input_type_photo-name');
+    const photoLink = evt.target.querySelector('.popup__text-input_type_photo-link');
+
+    renderCard(photoName.value, photoLink.value);
+    evt.target.reset();
+  }
+
+  hidePopup(evt);
+}
+
+
+/**
+ * Добавляет карточку с фото в DOM
+ *
+ * @param {string} photoName Название фотографии
+ * @param {string} photoLink Ссылка на фотографию
+ */
+function renderCard(photoName, photoLink) {
+  const photoCardTemplate = document.querySelector('#photo-card').content;
+  const photoGrid = document.querySelector('.photo-grid__list');
+  const photoCard = photoCardTemplate.querySelector('.photo-grid__item').cloneNode(true);
+
+  const photoCardImage = photoCard.querySelector('.photo-grid__photo');
+  photoCardImage.alt = photoName;
+  photoCardImage.src = photoLink;
+  photoCard.querySelector('.photo-grid__title').textContent = photoName;
+
+  photoCardImage.addEventListener('click', setPhoto);
+
+  const likeButton = photoCard.querySelector('.photo-grid__like-button');
+  likeButton.addEventListener('click', e => {
+    e.target.classList.toggle('photo-grid__like-button_checked');
+  });
+
+  const trashButton = photoCard.querySelector('.photo-grid__trash-button');
+  trashButton.addEventListener('click', e => {
+    e.target.closest('.photo-grid__item').remove();
+  });
+
+  photoGrid.prepend(photoCard);
+}
+
+
+/**
+ * Устанавливает в popup новое фото
+ *
+ * @param {object} evt Событие
+ */
+function setPhoto(evt) {
+  const popupPhoto = document.querySelector('.popup__photo');
+
+  // чтобы при ожидании загрузки фото не было видно предыдущего фото
+  // скроем его модификатором до момента полной загрузки
+  popupPhoto.addEventListener('load', evt => {
+    evt.target.classList.remove('popup__photo_hidden');
+  });
+
+  popupPhoto.classList.add('popup__photo_hidden');
+  popupPhoto.src = evt.target.src;
+  popupPhoto.alt = evt.target.alt;
+
+  document.querySelector('.popup__caption').textContent = evt.target.alt;
+
+  showPopup('.popup__container_type_open-photo');
+}
+
+
+/**
+ * Делает popup видимым
+ *
+ * @param {string} selector Селектор для идентификации требуемого popup
+ */
+function showPopup(selector) {
+  const popup = document.querySelector(selector).closest('.popup');
+
+  popup.classList.add('popup_opened');
+}
+
+
+/**
+ * Скрывает popup
+ *
+ * @param {object} evt Событие
+ */
+function hidePopup(evt) {
+  evt.target.closest('.popup').classList.remove('popup_opened');
+}
+
+
 (function() {
   // Исходные данные по заданию
   const initialCards = [
@@ -78,107 +181,3 @@ addButton.addEventListener('click',() => {
 closeButtons.forEach(button => {
   button.addEventListener('click', hidePopup);
 });
-
-
-/**
- * Обработка submit
- *
- * @param {object} evt Событие
- */
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  const formName = evt.target.getAttribute('name');
-
-  if (formName === 'profile') {
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-  }
-  if (formName === 'add-photo') {
-    const photoName = evt.target.querySelector('.popup__text-input_type_photo-name');
-    const photoLink = evt.target.querySelector('.popup__text-input_type_photo-link');
-
-    renderCard(photoName.value, photoLink.value);
-    evt.target.reset();
-  }
-
-  hidePopup(evt);
-}
-
-
-/**
- * Добавляет карточку с фото в DOM
- *
- * @param {string} photoName Название фотографии
- * @param {string} photoLink Ссылка на фотографию
- */
-function renderCard(photoName, photoLink) {
-  const photoCardTemplate = document.querySelector('#photo-card').content;
-  const photoGrid = document.querySelector('.photo-grid__list');
-  const photoCard = photoCardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-
-  const photoCardImage = photoCard.querySelector('.photo-grid__photo');
-  photoCardImage.alt = photoName;
-  photoCardImage.src = photoLink;
-  photoCard.querySelector('.photo-grid__title').textContent = photoName;
-
-  const likeButton = photoCard.querySelector('.photo-grid__like-button');
-  likeButton.addEventListener('click', e => {
-    e.target.classList.toggle('photo-grid__like-button_checked');
-  });
-
-  const trashButton = photoCard.querySelector('.photo-grid__trash-button');
-  trashButton.addEventListener('click', e => {
-    e.target.closest('.photo-grid__item').remove();
-  });
-
-  photoCard.querySelector('.photo-grid__photo').addEventListener('click', setPhoto);
-
-  photoGrid.prepend(photoCard);
-}
-
-
-/**
- * Устанавливает в popup новое фото
- *
- * @param {object} evt Событие
- */
-function setPhoto(evt) {
-  const popupPhoto = document.querySelector('.popup__photo');
-
-  // чтобы при ожидании загрузки фото не было видно предыдущего фото
-  // скроем его модификатором до момента полной загрузки
-  popupPhoto.addEventListener('load', evt => {
-    evt.target.classList.remove('popup__photo_hidden');
-  });
-
-  popupPhoto.classList.add('popup__photo_hidden');
-  popupPhoto.src = evt.target.src;
-  popupPhoto.alt = evt.target.alt;
-
-  document.querySelector('.popup__caption').textContent = evt.target.alt;
-
-  showPopup('.popup__container_type_open-photo');
-}
-
-
-/**
- * Делает popup видимым
- *
- * @param {string} selector Селектор для идентификации требуемого popup
- */
-function showPopup(selector) {
-  const popup = document.querySelector(selector).closest('.popup');
-
-  popup.classList.add('popup_opened');
-}
-
-
-/**
- * Скрывает popup
- *
- * @param {object} evt Событие
- */
-function hidePopup(evt) {
-  evt.target.closest('.popup').classList.remove('popup_opened');
-}
-
