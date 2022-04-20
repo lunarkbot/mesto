@@ -3,7 +3,7 @@
  *
  * @param {object} evt Событие
  */
-function profileFormHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   profileName.textContent = nameInput.value;
@@ -18,7 +18,7 @@ function profileFormHandler(evt) {
  *
  * @param {object} evt Событие
  */
-function cardFormHandler(evt) {
+function handleCardFormSubmit(evt) {
   evt.preventDefault();
 
   const cardElement = createCard(photoNameInput.value, photoLinkInput.value);
@@ -176,8 +176,8 @@ popupPhoto.addEventListener('load', () => {
 });
 
 
-profileFormElement.addEventListener('submit', profileFormHandler);
-cardFormElement.addEventListener('submit', cardFormHandler);
+profileFormElement.addEventListener('submit', handleProfileFormSubmit);
+cardFormElement.addEventListener('submit', handleCardFormSubmit);
 
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
