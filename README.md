@@ -17,7 +17,7 @@
 
 ### Демо
 
-Посмотреть проект можно на [GitHub Pages](https://mesto.z-style.org)
+Посмотреть проект можно на [GitHub Pages](https://mesto.lunarkbot.net)
 
 ---
 
