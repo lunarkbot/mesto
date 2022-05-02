@@ -40,14 +40,24 @@
       <div class="popup__container popup__container_type_profile">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="form" name="profile" novalidate>
-          <input type="text"
-                 name="name"
-                 placeholder="Имя"
-                 class="form__text-input form__text-input_type_name">
-          <input type="text"
-                 name="job"
-                 placeholder="О себе"
-                 class="form__text-input form__text-input_type_job">
+          <label class="form__field">
+            <input type="text"
+                   name="name"
+                   id="name-input"
+                   placeholder="Имя"
+                   required
+                   class="form__text-input form__text-input_type_name">
+            <span class="name-input-error form__input-error">Проверка</span>
+          </label>
+          <label class="form__field form__field_last">
+            <input type="text"
+                   name="job"
+                   id="job-input"
+                   placeholder="О себе"
+                   required
+                   class="form__text-input form__text-input_type_job">
+            <span class="job-input-error form__input-error">Проверка</span>
+          </label>
           <button type="submit"
                  class="form__submit-button">Сохранить</button>
         </form>
@@ -61,19 +71,24 @@
       <div class="popup__container popup__container_type_add-photo">
         <h2 class="popup__title">Новое место</h2>
         <form class="form" name="add-photo" novalidate>
-          <input type="text"
-                 name="name"
-                 id="photo-name-input"
-                 placeholder="Название"
-                 required
-                 class="form__text-input form__text-input_type_photo-name">
-          <span class="photo-name-input-error form__input-error"></span>
-          <input type="text"
-                 name="job"
-                 placeholder="Ссылка на картинку"
-                 required
-                 class="form__text-input form__text-input_type_photo-link">
-          <span class="photo-name-input-error form__input-error"></span>
+          <label class="form__field">
+            <input type="text"
+                   name="name"
+                   id="photo-name-input"
+                   placeholder="Название"
+                   required
+                   class="form__text-input form__text-input_type_photo-name">
+            <span class="photo-name-input-error form__input-error">Проверка</span>
+          </label>
+          <label class="form__field form__field_last">
+            <input type="text"
+                   name="link"
+                   id="photo-link-input"
+                   placeholder="Ссылка на картинку"
+                   required
+                   class="form__text-input form__text-input_type_photo-link">
+            <span class="photo-link-input-error form__input-error">Проверка</span>
+          </label>
           <button type="submit"
                   class="form__submit-button">Сохранить</button>
         </form>
