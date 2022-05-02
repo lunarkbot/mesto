@@ -30,6 +30,19 @@ function handleCardFormSubmit(evt) {
 
 
 /**
+ * Закрывает текущий открытый popup по Escape
+ *
+ * @param {object} evt Событие
+ */
+function closePopupWithEscape(evt) {
+  if (evt.key !== 'Escape') return;
+
+  const currentPopup = document.querySelector('.popup_opened');
+  closePopup(currentPopup);
+}
+
+
+/**
  * Создает фотокарточку
  *
  * @param {string} photoName Название фотографии
@@ -82,6 +95,7 @@ function setPhoto(photoName, photoLink) {
  */
 function showPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupWithEscape);
 }
 
 
@@ -90,6 +104,7 @@ function showPopup(popup) {
  */
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupWithEscape);
 }
 
 
@@ -158,12 +173,18 @@ photoGrid.append(...initialCardsBlocks);
   Чтобы избежать эффекта плавного нежелательного исчезания popup'ов
   при загрузке или обновлении страницы, всем popup'ам добавляется
   модификатор с настройками анимации только после полной загрузки страницы.
+
+  В этом же месте мы можем добавить событие для скрытия popup по клику за его пределами
 */
 window.addEventListener('load', () => {
   const popups = document.querySelectorAll('.popup');
 
   popups.forEach(popup => {
     popup.classList.add('popup_animated');
+
+    popup.addEventListener('click', (evt) => {
+      if (evt.target === popup) closePopup(popup);
+    })
   });
 });
 
