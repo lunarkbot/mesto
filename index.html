@@ -46,6 +46,8 @@
                    id="name-input"
                    placeholder="Имя"
                    required
+                   minlength="2"
+                   maxlength="40"
                    class="form__text-input form__text-input_type_name">
             <span class="name-input-error form__input-error">Проверка</span>
           </label>
@@ -55,6 +57,8 @@
                    id="job-input"
                    placeholder="О себе"
                    required
+                   minlength="2"
+                   maxlength="200"
                    class="form__text-input form__text-input_type_job">
             <span class="job-input-error form__input-error">Проверка</span>
           </label>
@@ -77,11 +81,13 @@
                    id="photo-name-input"
                    placeholder="Название"
                    required
+                   minlength="2"
+                   maxlength="30"
                    class="form__text-input form__text-input_type_photo-name">
             <span class="photo-name-input-error form__input-error">Проверка</span>
           </label>
           <label class="form__field form__field_last">
-            <input type="text"
+            <input type="url"
                    name="link"
                    id="photo-link-input"
                    placeholder="Ссылка на картинку"

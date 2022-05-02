@@ -4,7 +4,7 @@
  * @param {object} evt Событие
  */
 function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+  if (isFormNotValid(submitProfileButton)) return;
 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -19,7 +19,7 @@ function handleProfileFormSubmit(evt) {
  * @param {object} evt Событие
  */
 function handleCardFormSubmit(evt) {
-  evt.preventDefault();
+  if (isFormNotValid(submitCardFormButton)) return;
 
   const cardElement = createCard(photoNameInput.value, photoLinkInput.value);
   photoGrid.prepend(cardElement);
@@ -27,6 +27,12 @@ function handleCardFormSubmit(evt) {
   cardFormElement.reset();
   closePopup(cardPopup);
 }
+
+
+function isFormNotValid(submitButton) {
+  return submitButton.classList.contains('form__submit-button_disabled');
+}
+
 
 
 /**
@@ -107,6 +113,12 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopupWithEscape);
 }
 
+function setProfileFormVal() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  submitProfileButton.classList.remove('form__submit-button_disabled');
+}
+
 
 // Popups
 const profilePopup = document.querySelector('.profile-popup');
@@ -124,6 +136,8 @@ const photoLinkInput = document.querySelector('.form__text-input_type_photo-link
 const closeButtons = document.querySelectorAll('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const submitProfileButton = profileFormElement.querySelector('.form__submit-button');
+const submitCardFormButton = cardFormElement.querySelector('.form__submit-button');
 // Текст
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
@@ -201,10 +215,10 @@ profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 cardFormElement.addEventListener('submit', handleCardFormSubmit);
 
 editButton.addEventListener('click', () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  setProfileFormVal()
   showPopup(profilePopup);
 });
+setProfileFormVal();
 
 addButton.addEventListener('click',() => {
   showPopup(cardPopup);

@@ -4,6 +4,7 @@
   left: 0;
   user-select: none;
   font-size: 12px;
+  line-height: 12px;
   color: #ff0000;
   opacity: 0;
   transition: opacity 250ms;
