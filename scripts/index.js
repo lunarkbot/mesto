@@ -116,10 +116,10 @@ const photoPopup = document.querySelector('.image-popup');
 const profileFormElement = profilePopup.querySelector('form');
 const cardFormElement = cardPopup.querySelector('form');
 // Поля формы
-const nameInput = document.querySelector('.popup__text-input_type_name');
-const jobInput = document.querySelector('.popup__text-input_type_job');
-const photoNameInput = document.querySelector('.popup__text-input_type_photo-name');
-const photoLinkInput = document.querySelector('.popup__text-input_type_photo-link');
+const nameInput = document.querySelector('.form__text-input_type_name');
+const jobInput = document.querySelector('.form__text-input_type_job');
+const photoNameInput = document.querySelector('.form__text-input_type_photo-name');
+const photoLinkInput = document.querySelector('.form__text-input_type_photo-link');
 // Кнопки
 const closeButtons = document.querySelectorAll('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
