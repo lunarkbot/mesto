@@ -1,0 +1,9 @@
+.form__field_last {
+  margin-bottom: 45px;
+}
+
+@media screen and (min-width: 918px) {
+  .form__field_last {
+    margin-bottom: 48px;
+  }
+}

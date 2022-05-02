@@ -39,19 +39,33 @@
     <div class="popup profile-popup">
       <div class="popup__container popup__container_type_profile">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="profile">
-          <input type="text"
-                 name="name"
-                 placeholder="Имя"
-                 class="popup__text-input popup__text-input_type_name">
-          <input type="text"
-                 name="job"
-                 placeholder="О себе"
-                 class="popup__text-input popup__text-input_type_job">
+        <form class="form" name="profile" novalidate>
+          <label class="form__field">
+            <input type="text"
+                   name="name"
+                   id="name-input"
+                   placeholder="Имя"
+                   required
+                   minlength="2"
+                   maxlength="40"
+                   class="form__text-input form__text-input_type_name">
+            <span class="name-input-error form__input-error">Проверка</span>
+          </label>
+          <label class="form__field form__field_last">
+            <input type="text"
+                   name="job"
+                   id="job-input"
+                   placeholder="О себе"
+                   required
+                   minlength="2"
+                   maxlength="200"
+                   class="form__text-input form__text-input_type_job">
+            <span class="job-input-error form__input-error">Проверка</span>
+          </label>
           <button type="submit"
-                 class="popup__submit-button">Сохранить</button>
-          <button class="popup__close-button" type="button"></button>
+                 class="form__submit-button">Сохранить</button>
         </form>
+        <button class="popup__close-button" type="button"></button>
       </div>
     </div>
     <!-- / Popup: редактирование профиля -->
@@ -60,19 +74,29 @@
     <div class="popup card-popup">
       <div class="popup__container popup__container_type_add-photo">
         <h2 class="popup__title">Новое место</h2>
-        <form name="add-photo">
-          <input type="text"
-                 name="name"
-                 placeholder="Название"
-                 required
-                 class="popup__text-input popup__text-input_type_photo-name">
-          <input type="text"
-                 name="job"
-                 placeholder="Ссылка на картинку"
-                 required
-                 class="popup__text-input popup__text-input_type_photo-link">
+        <form class="form" name="add-photo" novalidate>
+          <label class="form__field">
+            <input type="text"
+                   name="name"
+                   id="photo-name-input"
+                   placeholder="Название"
+                   required
+                   minlength="2"
+                   maxlength="30"
+                   class="form__text-input form__text-input_type_photo-name">
+            <span class="photo-name-input-error form__input-error">Проверка</span>
+          </label>
+          <label class="form__field form__field_last">
+            <input type="url"
+                   name="link"
+                   id="photo-link-input"
+                   placeholder="Ссылка на картинку"
+                   required
+                   class="form__text-input form__text-input_type_photo-link">
+            <span class="photo-link-input-error form__input-error">Проверка</span>
+          </label>
           <button type="submit"
-                  class="popup__submit-button">Сохранить</button>
+                  class="form__submit-button">Сохранить</button>
         </form>
         <button class="popup__close-button" type="button"></button>
       </div>
@@ -110,5 +134,6 @@
     </template>
   </div>
 <script src="./scripts/index.js"></script>
+<script src="./scripts/validate.js"></script>
 </body>
 </html>

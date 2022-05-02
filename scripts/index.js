@@ -4,7 +4,7 @@
  * @param {object} evt Событие
  */
 function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+  if (isFormNotValid(submitProfileButton)) return;
 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -19,13 +19,32 @@ function handleProfileFormSubmit(evt) {
  * @param {object} evt Событие
  */
 function handleCardFormSubmit(evt) {
-  evt.preventDefault();
+  if (isFormNotValid(submitCardFormButton)) return;
 
   const cardElement = createCard(photoNameInput.value, photoLinkInput.value);
   photoGrid.prepend(cardElement);
 
   cardFormElement.reset();
   closePopup(cardPopup);
+}
+
+
+function isFormNotValid(submitButton) {
+  return submitButton.classList.contains('form__submit-button_disabled');
+}
+
+
+
+/**
+ * Закрывает текущий открытый popup по Escape
+ *
+ * @param {object} evt Событие
+ */
+function closePopupWithEscape(evt) {
+  if (evt.key !== 'Escape') return;
+
+  const currentPopup = document.querySelector('.popup_opened');
+  closePopup(currentPopup);
 }
 
 
@@ -82,6 +101,7 @@ function setPhoto(photoName, photoLink) {
  */
 function showPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupWithEscape);
 }
 
 
@@ -90,6 +110,13 @@ function showPopup(popup) {
  */
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupWithEscape);
+}
+
+function setProfileFormVal() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  submitProfileButton.classList.remove('form__submit-button_disabled');
 }
 
 
@@ -101,14 +128,16 @@ const photoPopup = document.querySelector('.image-popup');
 const profileFormElement = profilePopup.querySelector('form');
 const cardFormElement = cardPopup.querySelector('form');
 // Поля формы
-const nameInput = document.querySelector('.popup__text-input_type_name');
-const jobInput = document.querySelector('.popup__text-input_type_job');
-const photoNameInput = document.querySelector('.popup__text-input_type_photo-name');
-const photoLinkInput = document.querySelector('.popup__text-input_type_photo-link');
+const nameInput = document.querySelector('.form__text-input_type_name');
+const jobInput = document.querySelector('.form__text-input_type_job');
+const photoNameInput = document.querySelector('.form__text-input_type_photo-name');
+const photoLinkInput = document.querySelector('.form__text-input_type_photo-link');
 // Кнопки
 const closeButtons = document.querySelectorAll('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const submitProfileButton = profileFormElement.querySelector('.form__submit-button');
+const submitCardFormButton = cardFormElement.querySelector('.form__submit-button');
 // Текст
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
@@ -158,12 +187,18 @@ photoGrid.append(...initialCardsBlocks);
   Чтобы избежать эффекта плавного нежелательного исчезания popup'ов
   при загрузке или обновлении страницы, всем popup'ам добавляется
   модификатор с настройками анимации только после полной загрузки страницы.
+
+  В этом же месте мы можем добавить событие для скрытия popup по клику за его пределами
 */
 window.addEventListener('load', () => {
   const popups = document.querySelectorAll('.popup');
 
   popups.forEach(popup => {
     popup.classList.add('popup_animated');
+
+    popup.addEventListener('click', (evt) => {
+      if (evt.target === popup) closePopup(popup);
+    })
   });
 });
 
@@ -180,10 +215,10 @@ profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 cardFormElement.addEventListener('submit', handleCardFormSubmit);
 
 editButton.addEventListener('click', () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  setProfileFormVal()
   showPopup(profilePopup);
 });
+setProfileFormVal();
 
 addButton.addEventListener('click',() => {
   showPopup(cardPopup);
