@@ -4,8 +4,6 @@
  * @param {object} evt Событие
  */
 function handleProfileFormSubmit(evt) {
-  if (isFormNotValid(submitProfileButton)) return;
-
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
@@ -19,20 +17,12 @@ function handleProfileFormSubmit(evt) {
  * @param {object} evt Событие
  */
 function handleCardFormSubmit(evt) {
-  if (isFormNotValid(submitCardFormButton)) return;
-
   const cardElement = createCard(photoNameInput.value, photoLinkInput.value);
   photoGrid.prepend(cardElement);
 
   cardFormElement.reset();
   closePopup(cardPopup);
 }
-
-
-function isFormNotValid(submitButton) {
-  return submitButton.classList.contains('form__submit-button_disabled');
-}
-
 
 
 /**
