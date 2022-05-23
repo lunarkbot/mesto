@@ -1,3 +1,19 @@
+import {FormValidator} from './FormValidator.js';
+
+const documentForms = Array.from(document.querySelectorAll('.form'));
+documentForms.forEach(form => {
+  const formValidator = new FormValidator({
+    formSelector: '.form',
+    inputSelector: '.form__text-input',
+    submitButtonSelector: '.form__submit-button',
+    inactiveButtonClass: 'form__submit-button_disabled',
+    inputErrorClass: 'form__text-input_type_error',
+    errorClass: 'form__input-error_visible'
+  }, form);
+
+  formValidator.enableValidate();
+});
+
 /**
  * Submit формы редактирования профиля
  *
