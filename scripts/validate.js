@@ -78,3 +78,36 @@ enableValidation({
   inputErrorClass: 'form__text-input_type_error',
   errorClass: 'form__input-error_visible'
 });
+
+
+
+/// INDEX !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
