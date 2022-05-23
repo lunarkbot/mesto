@@ -6,6 +6,8 @@ export class FormValidator {
     this._formElement = formElement;
     this._buttonElement = formElement.querySelector(options.submitButtonSelector);
     this._inputList = Array.from(formElement.querySelectorAll(options.inputSelector));
+    this._addButton = options.addButton;
+    this._editButton = options.editButton;
   }
 
   _isValid(inputElement) {
@@ -44,6 +46,13 @@ export class FormValidator {
         this._isValid(inputElement);
         this._toggleButtonState();
       });
+    });
+
+    this._addButton.addEventListener('click', () => {
+      this._toggleButtonState();
+    });
+    this._editButton.addEventListener('click', () => {
+      this._toggleButtonState();
     });
   }
 

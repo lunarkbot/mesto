@@ -1,22 +1,6 @@
 import {FormValidator} from './FormValidator.js';
 import {Card} from './Card.js';
 
-//Включаем валидацию форм
-const documentForms = Array.from(document.querySelectorAll('.form'));
-documentForms.forEach(form => {
-  const formValidator = new FormValidator({
-    formSelector: '.form',
-    inputSelector: '.form__text-input',
-    submitButtonSelector: '.form__submit-button',
-    inactiveButtonClass: 'form__submit-button_disabled',
-    inputErrorClass: 'form__text-input_type_error',
-    errorClass: 'form__input-error_visible'
-  }, form);
-
-  formValidator.enableValidate();
-});
-
-
 /**
  * Submit формы редактирования профиля
  *
@@ -39,7 +23,7 @@ function handleCardFormSubmit(evt) {
   const cardElement = new Card({
     name: photoNameInput.value,
     link: photoLinkInput.value
-  }, '#photo-card');
+  }, '#photo-card', handlePhotoClick);
 
   photoGrid.prepend(cardElement.createCard());
 
@@ -61,6 +45,11 @@ function closePopupWithEscape(evt) {
 }
 
 
+/**
+ * Обработка клика по фотографии в карточке
+ * @param name
+ * @param link
+ */
 function handlePhotoClick(name, link) {
   setPhoto(name, link);
 }
@@ -130,7 +119,6 @@ const submitProfileButton = profileFormElement.querySelector('.form__submit-butt
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 // Фотокарточки
-const photoCardTemplate = document.querySelector('#photo-card').content;
 const photoGrid = document.querySelector('.photo-grid__list');
 const popupPhoto = document.querySelector('.popup__photo');
 const popupPhotoCaption = document.querySelector('.popup__caption');
@@ -219,4 +207,22 @@ addButton.addEventListener('click',() => {
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
+});
+
+
+//Включаем валидацию форм
+const documentForms = Array.from(document.querySelectorAll('.form'));
+documentForms.forEach(form => {
+  const formValidator = new FormValidator({
+    formSelector: '.form',
+    inputSelector: '.form__text-input',
+    submitButtonSelector: '.form__submit-button',
+    inactiveButtonClass: 'form__submit-button_disabled',
+    inputErrorClass: 'form__text-input_type_error',
+    errorClass: 'form__input-error_visible',
+    addButton,
+    editButton
+  }, form);
+
+  formValidator.enableValidate();
 });
