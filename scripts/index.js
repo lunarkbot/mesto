@@ -1,3 +1,6 @@
+import {FormValidator} from './FormValidator.js';
+import {Card} from './Card.js';
+
 /**
  * Submit формы редактирования профиля
  *
@@ -17,8 +20,12 @@ function handleProfileFormSubmit(evt) {
  * @param {object} evt Событие
  */
 function handleCardFormSubmit(evt) {
-  const cardElement = createCard(photoNameInput.value, photoLinkInput.value);
-  photoGrid.prepend(cardElement);
+  const cardElement = new Card({
+    name: photoNameInput.value,
+    link: photoLinkInput.value
+  }, '#photo-card', handlePhotoClick);
+
+  photoGrid.prepend(cardElement.createCard());
 
   cardFormElement.reset();
   closePopup(cardPopup);
@@ -39,33 +46,12 @@ function closePopupWithEscape(evt) {
 
 
 /**
- * Создает фотокарточку
- *
- * @param {string} photoName Название фотографии
- * @param {string} photoLink Ссылка на фотографию
+ * Обработка клика по фотографии в карточке
+ * @param name
+ * @param link
  */
-function createCard(photoName, photoLink) {
-  const cardElement = photoCardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-
-  const photoCardImage = cardElement.querySelector('.photo-grid__photo');
-  photoCardImage.alt = photoName;
-  photoCardImage.src = photoLink;
-
-  cardElement.querySelector('.photo-grid__title').textContent = photoName;
-
-  photoCardImage.addEventListener('click', () => setPhoto(photoName, photoLink));
-
-  const likeButton = cardElement.querySelector('.photo-grid__like-button');
-  likeButton.addEventListener('click', () => {
-    likeButton.classList.toggle('photo-grid__like-button_checked');
-  });
-
-  const trashButton = cardElement.querySelector('.photo-grid__trash-button');
-  trashButton.addEventListener('click', () => {
-    cardElement.remove();
-  });
-
-  return cardElement;
+function handlePhotoClick(name, link) {
+  setPhoto(name, link);
 }
 
 
@@ -103,11 +89,13 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopupWithEscape);
 }
 
+
 function setProfileFormVal() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   submitProfileButton.classList.remove('form__submit-button_disabled');
 }
+
 
 
 // Popups
@@ -127,15 +115,15 @@ const closeButtons = document.querySelectorAll('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const submitProfileButton = profileFormElement.querySelector('.form__submit-button');
-const submitCardFormButton = cardFormElement.querySelector('.form__submit-button');
 // Текст
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 // Фотокарточки
-const photoCardTemplate = document.querySelector('#photo-card').content;
 const photoGrid = document.querySelector('.photo-grid__list');
 const popupPhoto = document.querySelector('.popup__photo');
 const popupPhotoCaption = document.querySelector('.popup__caption');
+
+
 // Исходные данные по заданию
 const initialCards = [
   {
@@ -164,11 +152,13 @@ const initialCards = [
   }
 ];
 
+
 // соберем все исходные карточки, чтобы разом добавить в DOM
 const initialCardsBlocks = [];
 
-initialCards.forEach(card => {
-  initialCardsBlocks.push(createCard(card.name, card.link));
+initialCards.forEach(cardData => {
+  const cardElement = new Card(cardData, '#photo-card', handlePhotoClick);
+  initialCardsBlocks.push(cardElement.createCard());
 })
 
 photoGrid.append(...initialCardsBlocks);
@@ -217,4 +207,22 @@ addButton.addEventListener('click',() => {
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
+});
+
+
+//Включаем валидацию форм
+const documentForms = Array.from(document.querySelectorAll('.form'));
+documentForms.forEach(form => {
+  const formValidator = new FormValidator({
+    formSelector: '.form',
+    inputSelector: '.form__text-input',
+    submitButtonSelector: '.form__submit-button',
+    inactiveButtonClass: 'form__submit-button_disabled',
+    inputErrorClass: 'form__text-input_type_error',
+    errorClass: 'form__input-error_visible',
+    addButton,
+    editButton
+  }, form);
+
+  formValidator.enableValidate();
 });
