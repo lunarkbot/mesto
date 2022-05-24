@@ -6,8 +6,6 @@ export class FormValidator {
     this._formElement = formElement;
     this._buttonElement = formElement.querySelector(options.submitButtonSelector);
     this._inputList = Array.from(formElement.querySelectorAll(options.inputSelector));
-    this._addButton = options.addButton;
-    this._editButton = options.editButton;
   }
 
   _isValid(inputElement) {
@@ -37,7 +35,6 @@ export class FormValidator {
   _setEventListeners() {
     this._formElement.addEventListener('submit', evt => {
       evt.preventDefault();
-      this._buttonElement.classList.add(this._inactiveButtonClass);
     });
 
     // чтобы применить состояние кнопки до ввода в поле
@@ -46,13 +43,6 @@ export class FormValidator {
         this._isValid(inputElement);
         this._toggleButtonState();
       });
-    });
-
-    this._addButton.addEventListener('click', () => {
-      this._toggleButtonState();
-    });
-    this._editButton.addEventListener('click', () => {
-      this._toggleButtonState();
     });
   }
 
@@ -70,7 +60,15 @@ export class FormValidator {
     }
   }
 
-  enableValidate() {
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach(inputElement => {
+      this._hideInputError(inputElement);
+    });
+  }
+
+  enableValidation() {
     // применить состояние кнопки до ввода в поле
     this._toggleButtonState();
     // установить обработчики событий

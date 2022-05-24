@@ -4,6 +4,11 @@ export class Card {
     this._link = cardData.link;
     this._templateSelector = templateSelector;
     this._handlePhotoClick = handlePhotoClick;
+    this._cardElement = this._getTemplate();
+    this._photoCardImage = this._cardElement.querySelector('.photo-grid__photo');
+    this._likeButton  = this._cardElement.querySelector('.photo-grid__like-button');
+    this._trashButton = this._cardElement.querySelector('.photo-grid__trash-button');
+    this._cardTitle = this._cardElement.querySelector('.photo-grid__title');
   }
 
   _getTemplate() {
@@ -16,39 +21,27 @@ export class Card {
     return cardElement;
   }
 
-  _activateLikeButton(cardElement) {
-    const likeButton = cardElement.querySelector('.photo-grid__like-button');
-    likeButton.addEventListener('click', () => {
-      likeButton.classList.toggle('photo-grid__like-button_checked');
+  _setEventListeners() {
+    this._likeButton.addEventListener('click', () => {
+      this._likeButton.classList.toggle('photo-grid__like-button_checked');
     });
-  }
 
-  _activateTrashButton(cardElement) {
-    const trashButton = cardElement.querySelector('.photo-grid__trash-button');
-    trashButton.addEventListener('click', () => {
-      cardElement.remove();
+    this._trashButton.addEventListener('click', () => {
+      this._cardElement.remove();
     });
-  }
 
-  _getCardImage(cardElement) {
-    const photoCardImage = cardElement.querySelector('.photo-grid__photo');
-    photoCardImage.alt = this._name;
-    photoCardImage.src = this._link;
-
-    photoCardImage.addEventListener('click', () => {
+    this._photoCardImage.addEventListener('click', () => {
       this._handlePhotoClick(this._name, this._link);
     })
   }
 
   createCard() {
-    const cardElement = this._getTemplate();
+    this._photoCardImage.alt = this._name;
+    this._photoCardImage.src = this._link;
+    this._cardTitle.textContent = this._name;
 
-    this._getCardImage(cardElement)
-    this._activateLikeButton(cardElement);
-    this._activateTrashButton(cardElement);
+    this._setEventListeners();
 
-    cardElement.querySelector('.photo-grid__title').textContent = this._name;
-
-    return cardElement;
+    return this._cardElement;
   }
 }
