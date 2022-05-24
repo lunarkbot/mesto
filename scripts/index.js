@@ -20,10 +20,10 @@ function handleProfileFormSubmit(evt) {
  * @param {object} evt Событие
  */
 function handleCardFormSubmit(evt) {
-  const cardElement = new Card({
+  const cardElement = createCard({
     name: photoNameInput.value,
     link: photoLinkInput.value
-  }, '#photo-card', handlePhotoClick);
+  });
 
   photoGrid.prepend(cardElement.createCard());
 
@@ -55,6 +55,12 @@ function handlePhotoClick(name, link) {
 }
 
 
+function createCard(cardData) {
+  const cardElement = new Card(cardData, '#photo-card', handlePhotoClick);
+  return cardElement;
+}
+
+
 /**
  * Устанавливает в popup новое фото
  *
@@ -62,6 +68,28 @@ function handlePhotoClick(name, link) {
  * @param {string} photoLink Ссылка на фотографию
  */
 function setPhoto(photoName, photoLink) {
+
+  /*
+  * К сожалению, фича с popupPhoto.src = "#" не работает - все равно показывается
+  * прошлая картинка, если новая картинка требует более долгой загрузки.
+  *
+  * Чтобы проверить, можно замедлить соединение в DevTool до хотя бы Fast 3G
+  * и эффект появится на всех фото :(
+  *
+  * Проверял в Google Chrome Версия 101.0.4951.67 (Официальная сборка), (64 бит) / Windows 11 Pro.
+  *
+  * Если же поставить popupPhoto.src = '' - то срабатывает нормально, но тогда из-за отсутствия
+  * картинки в popup у нас прижимаются слишком близко кнопка закрытия и подпись к фото
+  * в момент ожидания загрузки новой фотки.
+  *
+  * Была мысль поставить что-то вроде min-height, но во-первых, мы не знаем какое изображение
+  * будет добавлено пользователем, а во вторых чем меньше элементы дергаются
+  * при загрузке фото, тем имхо лучше. И даже если сделать min-height: 100px изменять положение
+  * кнопка закрытия будет достаточно сильно после дозагрузки фотки.
+  *
+  * ¯\_(ツ)_/¯
+  * */
+
   popupPhoto.classList.add('popup__photo_hidden');
   popupPhoto.src = photoLink;
   popupPhoto.alt = photoName;
@@ -93,7 +121,6 @@ function closePopup(popup) {
 function setProfileFormVal() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  submitProfileButton.classList.remove('form__submit-button_disabled');
 }
 
 
@@ -111,10 +138,8 @@ const jobInput = document.querySelector('.form__text-input_type_job');
 const photoNameInput = document.querySelector('.form__text-input_type_photo-name');
 const photoLinkInput = document.querySelector('.form__text-input_type_photo-link');
 // Кнопки
-const closeButtons = document.querySelectorAll('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const submitProfileButton = profileFormElement.querySelector('.form__submit-button');
 // Текст
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
@@ -153,11 +178,34 @@ const initialCards = [
 ];
 
 
+//Включаем валидацию форм
+const formValidators = {};
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach(formElement => {
+    const formValidator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+
+    formValidators[formName] = formValidator;
+    formValidator.enableValidation();
+  });
+}
+
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__text-input',
+  submitButtonSelector: '.form__submit-button',
+  inactiveButtonClass: 'form__submit-button_disabled',
+  inputErrorClass: 'form__text-input_type_error',
+  errorClass: 'form__input-error_visible'
+})
+
+
 // соберем все исходные карточки, чтобы разом добавить в DOM
 const initialCardsBlocks = [];
 
 initialCards.forEach(cardData => {
-  const cardElement = new Card(cardData, '#photo-card', handlePhotoClick);
+  const cardElement = createCard(cardData);
   initialCardsBlocks.push(cardElement.createCard());
 })
 
@@ -169,6 +217,7 @@ photoGrid.append(...initialCardsBlocks);
   модификатор с настройками анимации только после полной загрузки страницы.
 
   В этом же месте мы можем добавить событие для скрытия popup по клику за его пределами
+  и по крестику
 */
 window.addEventListener('load', () => {
   const popups = document.querySelectorAll('.popup');
@@ -176,8 +225,9 @@ window.addEventListener('load', () => {
   popups.forEach(popup => {
     popup.classList.add('popup_animated');
 
-    popup.addEventListener('click', (evt) => {
-      if (evt.target === popup) closePopup(popup);
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')
+          || evt.target.classList.contains('popup__close')) closePopup(popup);
     })
   });
 });
@@ -196,33 +246,14 @@ cardFormElement.addEventListener('submit', handleCardFormSubmit);
 
 editButton.addEventListener('click', () => {
   setProfileFormVal()
+  formValidators['profile'].resetValidation()
   showPopup(profilePopup);
 });
-setProfileFormVal();
 
 addButton.addEventListener('click',() => {
+  formValidators['add-photo'].resetValidation()
   showPopup(cardPopup);
 });
 
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
 
 
-//Включаем валидацию форм
-const documentForms = Array.from(document.querySelectorAll('.form'));
-documentForms.forEach(form => {
-  const formValidator = new FormValidator({
-    formSelector: '.form',
-    inputSelector: '.form__text-input',
-    submitButtonSelector: '.form__submit-button',
-    inactiveButtonClass: 'form__submit-button_disabled',
-    inputErrorClass: 'form__text-input_type_error',
-    errorClass: 'form__input-error_visible',
-    addButton,
-    editButton
-  }, form);
-
-  formValidator.enableValidate();
-});

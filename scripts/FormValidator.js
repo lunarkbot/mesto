@@ -68,7 +68,7 @@ export class FormValidator {
     });
   }
 
-  enableValidate() {
+  enableValidation() {
     // применить состояние кнопки до ввода в поле
     this._toggleButtonState();
     // установить обработчики событий
