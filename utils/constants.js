@@ -24,3 +24,8 @@ export const initialCards = [
     link: './images/arhiz.jpg'
   }
 ];
+
+export const editButton = document.querySelector('.profile__edit-button');
+export const addButton = document.querySelector('.profile__add-button');
+export const nameInput = document.querySelector('.form__text-input_type_name');
+export const jobInput = document.querySelector('.form__text-input_type_job');
