@@ -1,5 +1,6 @@
-import {FormValidator} from './FormValidator.js';
-import {Card} from './Card.js';
+import {FormValidator} from '../components/FormValidator.js';
+import {Card} from '../components/Card.js'
+import {initialCards} from "../utils/constants.js";
 
 /**
  * Submit формы редактирования профиля
@@ -150,32 +151,7 @@ const popupPhotoCaption = document.querySelector('.popup__caption');
 
 
 // Исходные данные по заданию
-const initialCards = [
-  {
-    name: 'Франкфурт-на-Майне',
-    link: './images/frankfurt.jpg'
-  },
-  {
-    name: 'Львов',
-    link: './images/lviv.jpg'
-  },
-  {
-    name: 'Москва',
-    link: './images/moscow.jpg'
-  },
-  {
-    name: 'Минск',
-    link: './images/minsk.jpg'
-  },
-  {
-    name: 'Санкт-Петербург',
-    link: './images/saint-p.jpg'
-  },
-  {
-    name: 'Карачаево-Черкесия',
-    link: './images/arhiz.jpg'
-  }
-];
+
 
 
 //Включаем валидацию форм
