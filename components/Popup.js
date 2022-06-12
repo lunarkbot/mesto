@@ -5,30 +5,33 @@ export default class Popup {
   }
 
   _handleEscClose(evt) {
-    if (evt.key !== 'Escape') return;
+    if (evt.key === 'Escape') this.close();
+  }
 
-    const currentPopup = document.querySelector('.popup_opened');
-    this.close(currentPopup);
+  _handleOutsideClick(evt) {
+    if (evt.target.classList.contains('popup_opened')) this.close();
   }
 
   open() {
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', (evt) => {
-      this._handleEscClose(evt);
-    });
+    document.addEventListener('keydown', this._handleEscClose.bind(this));
   }
 
   close() {
     this._popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', (evt) => {
-      this._handleEscClose(evt);
-    });
+    document.removeEventListener('keydown', this._handleEscClose.bind(this));
+  }
+
+  // Чтобы избежать эффекта плавного нежелательного исчезания popup'ов
+  // при загрузке или обновлении страницы, всем popup'ам добавляется
+  // модификатор с настройками анимации только после создания экземпляра класса.
+  enableAnimation() {
+    this._popup.classList.add('popup_animated');
   }
 
   setEventListeners() {
-    this._closeButton.addEventListener('mousedown', (evt) => {
-      this.close();
-    })
+    this._closeButton.addEventListener('mousedown', this.close.bind(this));
+    this._popup.addEventListener('mousedown', this._handleOutsideClick.bind(this));
   }
 }
 

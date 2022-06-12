@@ -1,21 +1,32 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
-  constructor(popupSelector, photoLink, photoName) {
+  constructor(popupSelector) {
     super(popupSelector);
-    this._photoLink = photoLink;
-    this._photoName = photoName;
+    this._popupPhoto = document.querySelector('.popup__photo');
+    this._popupPhotoCaption = document.querySelector('.popup__caption');
   }
 
-  open() {
-    const popupPhoto = document.querySelector('.popup__photo');
-    const popupPhotoCaption = document.querySelector('.popup__caption');
+  setEventListeners() {
+    super.setEventListeners();
 
-    popupPhoto.classList.add('popup__photo_hidden');
-    popupPhoto.src = photoLink;
-    popupPhoto.alt = photoName;
+    // Уберем ранее добавленный класс, чтобы отобразить только что загруженное фото
+    // после его полной загрузки
+    this._popupPhoto.addEventListener('load', () => {
+      this._popupPhoto.classList.remove('popup__photo_hidden');
+    });
+  }
 
-    popupPhotoCaption.textContent = photoName;
+  open(photoName, photoLink) {
+    // Добавим модификатор, скрывающий фото до момента его полной загрузки,
+    // для решения двух проблем:
+    // 1. чтобы в момент загрузки нового фото не отображалось старое (медленный инет)
+    // 2. чтобы избежать изменения положения заголовка фото и кнопки закрытия попапа
+    this._popupPhoto.classList.add('popup__photo_hidden');
+
+    this._popupPhoto.src = photoLink;
+    this._popupPhoto.alt = photoName;
+    this._popupPhotoCaption.textContent = photoName;
 
     super.open();
   }
