@@ -1,16 +1,69 @@
-import {FormValidator} from '../components/FormValidator.js';
 import {Card} from '../components/Card.js'
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Section from "../components/Section.js";
+
+import {
+  enableValidation,
+} from "../utils/utils.js";
 
 import {
   initialCards,
   editButton,
   addButton,
   nameInput,
-  jobInput
+  jobInput,
+  photoNameInput,
+  photoLinkInput
 } from "../utils/constants.js";
+
+
+/**
+ * Submit формы редактирования профиля
+ * @param {object} evt Событие
+ */
+function handleProfileFormSubmit(evt) {
+  userInfo.setUserInfo(nameInput.value, jobInput.value);
+
+  profilePopup.close();
+}
+
+
+/**
+ * Submit формы создания фотокарточки
+ * @param {object} evt Событие
+ */
+function handleCardFormSubmit(evt) {
+  const cardElement = createCard({
+    name: photoNameInput.value,
+    link: photoLinkInput.value
+  });
+
+  section.addItem('afterbegin', cardElement);
+  cardPopup.close();
+}
+
+
+/**
+ * Обработка клика по фотографии в карточке
+ * @param name
+ * @param link
+ */
+function handlePhotoClick(name, link) {
+  popupWithImage.open(name, link);
+}
+
+/**
+ * Создает экземпляр класса Card
+ * @param cardData object Данные для создания карты
+ * @returns {element} готовый для вставки в DOM элемент
+ */
+function createCard(cardData) {
+  const card = new Card(cardData, '#photo-card', handlePhotoClick);
+  return card.createCard();
+}
+
 
 const popupWithImage = new PopupWithImage('.image-popup');
 popupWithImage.setEventListeners();
@@ -30,75 +83,8 @@ const userInfo = new UserInfo({
 });
 
 
-
-/**
- * Submit формы редактирования профиля
- *
- * @param {object} evt Событие
- */
-function handleProfileFormSubmit(evt) {
-  userInfo.setUserInfo(nameInput.value, jobInput.value);
-
-  profilePopup.close();
-}
-
-
-/**
- * Submit формы создания фотокарточки
- *
- * @param {object} evt Событие
- */
-function handleCardFormSubmit(evt) {
-  const cardElement = createCard({
-    name: photoNameInput.value,
-    link: photoLinkInput.value
-  });
-
-  photoGrid.prepend(cardElement.createCard());
-
-  //cardFormElement.reset();
-  cardPopup.close();
-}
-
-
-/**
- * Обработка клика по фотографии в карточке
- * @param name
- * @param link
- */
-function handlePhotoClick(name, link) {
-  popupWithImage.open(name, link);
-}
-
-
-function createCard(cardData) {
-  const cardElement = new Card(cardData, '#photo-card', handlePhotoClick);
-  return cardElement;
-}
-
-
-// Поля формы
-
-const photoNameInput = document.querySelector('.form__text-input_type_photo-name');
-const photoLinkInput = document.querySelector('.form__text-input_type_photo-link');
-// Фотокарточки
-const photoGrid = document.querySelector('.photo-grid__list');
-
-
 //Включаем валидацию форм
-const formValidators = {};
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach(formElement => {
-    const formValidator = new FormValidator(config, formElement);
-    const formName = formElement.getAttribute('name');
-
-    formValidators[formName] = formValidator;
-    formValidator.enableValidation();
-  });
-}
-
-enableValidation({
+const formValidators = enableValidation({
   formSelector: '.form',
   inputSelector: '.form__text-input',
   submitButtonSelector: '.form__submit-button',
@@ -108,15 +94,18 @@ enableValidation({
 })
 
 
-// соберем все исходные карточки, чтобы разом добавить в DOM
-const initialCardsBlocks = [];
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      section.addItem('beforeend', cardElement);
+    }
+  },
+  '.photo-grid__list'
+);
 
-initialCards.forEach(cardData => {
-  const cardElement = createCard(cardData);
-  initialCardsBlocks.push(cardElement.createCard());
-})
-
-photoGrid.append(...initialCardsBlocks);
+section.renderItems();
 
 
 editButton.addEventListener('click', () => {
@@ -133,6 +122,3 @@ addButton.addEventListener('click',() => {
   formValidators['add-photo'].resetValidation()
   cardPopup.open();
 });
-
-
-
