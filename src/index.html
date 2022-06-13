@@ -5,9 +5,8 @@
   <meta name="viewport"
         content="width=device-width, user-scalabgit le=yes, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" type="image/png" href="./images/favicon-32.png">
+  <link rel="icon" type="image/png" href="<%=require('./images/favicon-32.png')%>">
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="global">
   <div class="page">
@@ -16,7 +15,7 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/avatar.png" alt="Аватар">
+        <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Аватар">
         <div class="profile__info">
           <div class="profile__name-wrap">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -133,8 +132,5 @@
       </li>
     </template>
   </div>
-<script src="pages/index.js" type="module"></script>
-<script src="components/FormValidator.js" type="module"></script>
-  <script src="components/Card.js" type="module"></script>
 </body>
 </html>

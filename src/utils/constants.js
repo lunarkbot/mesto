@@ -1,27 +1,34 @@
+import frankfurtImg from '../images/frankfurt.jpg';
+import lvivImg from '../images/lviv.jpg';
+import moscowImg from '../images/moscow.jpg';
+import minskImg from '../images/moscow.jpg';
+import saintPImg from '../images/saint-p.jpg';
+import arhizImg from '../images/arhiz.jpg';
+
 export const initialCards = [
   {
     name: 'Франкфурт-на-Майне',
-    link: './images/frankfurt.jpg'
+    link: frankfurtImg
   },
   {
     name: 'Львов',
-    link: './images/lviv.jpg'
+    link: lvivImg
   },
   {
     name: 'Москва',
-    link: './images/moscow.jpg'
+    link: moscowImg
   },
   {
     name: 'Минск',
-    link: './images/minsk.jpg'
+    link: minskImg
   },
   {
     name: 'Санкт-Петербург',
-    link: './images/saint-p.jpg'
+    link: saintPImg
   },
   {
     name: 'Карачаево-Черкесия',
-    link: './images/arhiz.jpg'
+    link: arhizImg
   }
 ];
 
