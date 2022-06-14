@@ -13,18 +13,16 @@ import {
   editButton,
   addButton,
   nameInput,
-  jobInput,
-  photoNameInput,
-  photoLinkInput
+  jobInput
 } from "../utils/constants.js";
 
 
 /**
  * Submit формы редактирования профиля
- * @param {object} evt Событие
  */
-function handleProfileFormSubmit(evt) {
-  userInfo.setUserInfo(nameInput.value, jobInput.value);
+function handleProfileFormSubmit() {
+  const values = this._getInputValues();
+  userInfo.setUserInfo(values.name, values.job);
 
   profilePopup.close();
 }
@@ -32,12 +30,13 @@ function handleProfileFormSubmit(evt) {
 
 /**
  * Submit формы создания фотокарточки
- * @param {object} evt Событие
  */
-function handleCardFormSubmit(evt) {
+function handleCardFormSubmit() {
+  const values = this._getInputValues();
+
   const cardElement = createCard({
-    name: photoNameInput.value,
-    link: photoLinkInput.value
+    name: values.name,
+    link: values.link
   });
 
   section.addItem('afterbegin', cardElement);

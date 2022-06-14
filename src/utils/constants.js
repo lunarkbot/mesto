@@ -38,6 +38,3 @@ export const addButton = document.querySelector('.profile__add-button');
 // Поля формы профиля
 export const nameInput = document.querySelector('.form__text-input_type_name');
 export const jobInput = document.querySelector('.form__text-input_type_job');
-// Поля формы добавления фото
-export const photoNameInput = document.querySelector('.form__text-input_type_photo-name');
-export const photoLinkInput = document.querySelector('.form__text-input_type_photo-link');
