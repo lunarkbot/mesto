@@ -10,6 +10,7 @@
 * Figma (макет можно посмотреть [здесь](https://www.figma.com/proto/FICtgZMj34H0CTRBtxqziw/JavaScript.-Sprint-4-(Copy)?node-id=28212%3A269))
 * GIT
 * JavaScript (Basic & ES6)
+* Webpack
 
 ### О проекте
 
