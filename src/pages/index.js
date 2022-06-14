@@ -19,9 +19,9 @@ import {
 
 /**
  * Submit формы редактирования профиля
+ * @param values {object} Объект с данными из полей формы
  */
-function handleProfileFormSubmit() {
-  const values = this._getInputValues();
+function handleProfileFormSubmit(values) {
   userInfo.setUserInfo(values.name, values.job);
 
   profilePopup.close();
@@ -30,10 +30,9 @@ function handleProfileFormSubmit() {
 
 /**
  * Submit формы создания фотокарточки
+ * @param values {object} Объект с данными из полей формы
  */
-function handleCardFormSubmit() {
-  const values = this._getInputValues();
-
+function handleCardFormSubmit(values) {
   const cardElement = createCard({
     name: values.name,
     link: values.link
