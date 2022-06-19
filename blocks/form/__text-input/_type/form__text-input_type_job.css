@@ -1,9 +1,0 @@
-.form__text-input_type_job {
-  margin-bottom: 45px;
-}
-
-@media screen and (min-width: 918px) {
-  .form__text-input_type_job {
-    margin-bottom: 62px;
-  }
-}
