@@ -1,14 +1,15 @@
-.photo-grid__like-button {
+.likes-counter__button {
   width: 22px;
   height: 19px;
   background-color: transparent;
   background-image: url('../../../images/heart.svg');
-  background-size: cover;
+  background-size: 22px 17px;
+  background-repeat: no-repeat;
   border: 0;
   cursor: pointer;
   transition: opacity 200ms linear;
 }
 
-.photo-grid__like-button:hover {
+.likes-counter__button:hover {
   opacity: .6;
 }

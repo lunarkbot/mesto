@@ -1,0 +1,7 @@
+.likes-counter {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 22px;
+  height: 35px;
+}

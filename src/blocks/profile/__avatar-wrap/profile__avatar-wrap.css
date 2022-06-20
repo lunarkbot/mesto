@@ -1,0 +1,29 @@
+.profile__avatar-wrap {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 26px;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile__avatar-wrap:hover::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, .8);
+  background-image: url('../../../images/edit.svg');
+  background-size: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (min-width: 918px) {
+  .profile__avatar-wrap {
+    margin: 0 30px 0 0;
+  }
+}
