@@ -18,5 +18,3 @@ export const enableValidation = (config) => {
 
   return formValidators;
 }
-
-

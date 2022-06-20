@@ -3,6 +3,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import Api from "../components/Api.js";
 
 import {
   enableValidation,
@@ -12,9 +13,13 @@ import {
   initialCards,
   editButton,
   addButton,
+  avatarImage,
   nameInput,
-  jobInput
+  jobInput,
+  API_KEY,
+  API_BASEURL
 } from "../utils/constants.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
 
 
 /**
@@ -22,7 +27,17 @@ import {
  * @param values {object} Объект с данными из полей формы
  */
 function handleProfileFormSubmit(values) {
-  userInfo.setUserInfo(values.name, values.job);
+  profilePopup.renderLoading(true);
+  api.setUserData(values.name, values.job)
+    .then(result => {
+      userInfo.setUserInfo(result.name, result.about);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      profilePopup.renderLoading(false);
+    });
 
   profilePopup.close();
 }
@@ -33,13 +48,24 @@ function handleProfileFormSubmit(values) {
  * @param values {object} Объект с данными из полей формы
  */
 function handleCardFormSubmit(values) {
-  const cardElement = createCard({
-    name: values.name,
-    link: values.link
-  });
+  cardPopup.renderLoading(true);
+  api.addCard(values.name, values.link)
+    .then(result => {
+      const cardElement = createCard({
+        name: result.name,
+        link: result.link,
+        _id: result._id,
+      });
 
-  section.addItem('afterbegin', cardElement);
-  cardPopup.close();
+      section.addItem('afterbegin', cardElement);
+      cardPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      cardPopup.renderLoading(false);
+    });
 }
 
 
@@ -52,20 +78,129 @@ function handlePhotoClick(name, link) {
   popupWithImage.open(name, link);
 }
 
+
+/**
+ * Коллбек клика по кнопке "лайк" на карточке
+ */
+function handleLikeButtonClick() {
+  const isLiked = this._likeButton.classList.contains('likes-counter__button_checked');
+
+  if (isLiked) {
+    api.updateLikes(this._cardId, false)
+      .then(result => {
+        this._updateLikesCounter(result.likes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    api.updateLikes(this._cardId)
+      .then(result => {
+        this._updateLikesCounter(result.likes,false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+
+/**
+ * Коллбек обработчика клика по иконки удаления
+ */
+function handleTrashButtonClick() {
+  popupConfirmation.open(this._cardId, this._cardElement);
+}
+
+
+/**
+ * Коллбек сабмита подтверждения действия удаления
+ * @param evt
+ */
+function handleConfirmationFormSubmit(evt) {
+  evt.preventDefault();
+
+  api.deleteCard(this._itemIdElement.value)
+    .then(result => {
+      this._itemElement.remove();
+      this._itemElement = null;
+      popupConfirmation.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+
+/**
+ * Коллбек сабмита формы с новым аватаром
+ * @param values {object} объект с данными всех inputs формы
+ */
+function handleAvatarFormSubmit(values) {
+  avatarPopup.renderLoading(true);
+  api.setAvatar(values['avatar-url'])
+    .then(result => {
+      avatarImage.src = result.avatar;
+      avatarPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      avatarPopup.renderLoading(false);
+    });
+}
+
+
 /**
  * Создает экземпляр класса Card
  * @param cardData object Данные для создания карты
  * @returns {element} готовый для вставки в DOM элемент
  */
 function createCard(cardData) {
-  const card = new Card(cardData, '#photo-card', handlePhotoClick);
+  const card = new Card(
+    cardData,
+    {
+      templateSelector: '#photo-card',
+      photoCardImageSelector: '.photo-grid__photo',
+      likeButtonSelector: '.likes-counter__button',
+      likeCounterSelector: '.likes-counter__result',
+      trashButtonSelector: '.photo-grid__trash-button',
+      cardTitleSelector: '.photo-grid__title'
+    },
+    handlePhotoClick,
+    handleLikeButtonClick,
+    handleTrashButtonClick
+  );
   return card.createCard();
 }
 
+const api = new Api({
+    baseUrl: API_BASEURL,
+    headers: {
+      authorization: API_KEY,
+      'Content-Type': 'application/json',
+    },
+    checker: (res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  },
+);
 
 const popupWithImage = new PopupWithImage('.image-popup');
 popupWithImage.setEventListeners();
 popupWithImage.enableAnimation();
+
+const popupConfirmation = new PopupWithConfirmation(
+  '.confirmation-popup',
+  handleConfirmationFormSubmit
+);
+popupConfirmation.setEventListeners();
+popupConfirmation.enableAnimation();
 
 const profilePopup = new PopupWithForm('.profile-popup', handleProfileFormSubmit);
 profilePopup.setEventListeners();
@@ -75,9 +210,14 @@ const cardPopup = new PopupWithForm('.card-popup', handleCardFormSubmit);
 cardPopup.setEventListeners();
 cardPopup.enableAnimation();
 
+const avatarPopup = new PopupWithForm('.avatar-popup', handleAvatarFormSubmit);
+avatarPopup.setEventListeners();
+avatarPopup.enableAnimation();
+
 const userInfo = new UserInfo({
   userNameSelector: '.profile__name',
-  userJobSelector: '.profile__job'
+  userJobSelector: '.profile__job',
+  userAvatarSelector: '.profile__avatar'
 });
 
 
@@ -103,7 +243,27 @@ const section = new Section(
   '.photo-grid__list'
 );
 
-section.renderItems();
+
+Promise.all([api.getUserData(), api.getCards()])
+  .then(([userData, cardsData]) => {
+    userInfo.setUserInfo(
+      userData.name,
+      userData.about,
+      userData.avatar
+    );
+
+    sessionStorage.setItem('ownerId', userData._id);
+
+    section.updateItems(cardsData);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    section.renderItems();
+  });
+
+
 
 
 editButton.addEventListener('click', () => {
@@ -119,4 +279,9 @@ editButton.addEventListener('click', () => {
 addButton.addEventListener('click',() => {
   formValidators['add-photo'].resetValidation()
   cardPopup.open();
+});
+
+avatarImage.addEventListener('click', () => {
+  formValidators['avatar'].resetValidation();
+  avatarPopup.open();
 });

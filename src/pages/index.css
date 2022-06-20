@@ -11,6 +11,7 @@
 
 @import url('../blocks/profile/profile.css');
 @import url('../blocks/profile/__avatar/profile__avatar.css');
+@import url('../blocks/profile/__avatar-wrap/profile__avatar-wrap.css');
 @import url('../blocks/profile/__name-wrap/profile__name-wrap.css');
 @import url('../blocks/profile/__info/profile__info.css');
 @import url('../blocks/profile/__name/profile__name.css');
@@ -27,8 +28,6 @@
 @import url('../blocks/photo-grid/__trash/photo-grid__trash-button.css');
 @import url('../blocks/photo-grid/__caption/photo-grid__caption.css');
 @import url('../blocks/photo-grid/__title/photo-grid__title.css');
-@import url('../blocks/photo-grid/__like-button/photo-grid__like-button.css');
-@import url('../blocks/photo-grid/__like-button/_checked/photo-grid__like-button_checked.css');
 
 
 @import url('../blocks/footer/footer.css');
@@ -38,11 +37,14 @@
 @import url('../blocks/popup/_opened/popup_opened.css');
 @import url('../blocks/popup/_animated/popup_animated.css');
 @import url('../blocks/popup/__title/popup__title.css');
+@import url('../blocks/popup/__title/_type/popup__title_type_confirmation.css');
 @import url('../blocks/popup/__close-button/popup__close-button.css');
 @import url('../blocks/popup/__container/popup__container.css');
 @import url('../blocks/popup/__container/_type/popup__container_type_profile.css');
 @import url('../blocks/popup/__container/_type/popup__container_type_add-photo.css');
 @import url('../blocks/popup/__container/_type/popup__container_type_open-photo.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_confirmation.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_avatar.css');
 @import url('../blocks/popup/__figure/popup__figure.css');
 @import url('../blocks/popup/__caption/popup__caption.css');
 @import url('../blocks/popup/__photo/popup__photo.css');
@@ -56,3 +58,8 @@
 @import url('../blocks/form/__input-error/_visible/form__input-error_visible.css');
 @import url('../blocks/form/__text-input/form__text-input.css');
 @import url('../blocks/form/__text-input/_type/form__text-input_type_error.css');
+
+@import url('../blocks/likes-counter/likes-counter.css');
+@import url('../blocks/likes-counter/__button/likes-counter__button.css');
+@import url('../blocks/likes-counter/__button/_checked/likes-counter__button_checked.css');
+@import url('../blocks/likes-counter/__result/likes-counter__result.css');

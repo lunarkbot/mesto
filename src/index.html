@@ -15,7 +15,9 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Аватар">
+        <div class="profile__avatar-wrap">
+          <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Аватар">
+        </div>
         <div class="profile__info">
           <div class="profile__name-wrap">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -102,6 +104,42 @@
     </div>
     <!-- / Popup: добавление фото -->
 
+    <!-- Popup: обновление аватара -->
+    <div class="popup avatar-popup">
+      <div class="popup__container popup__container_type_avatar">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="form" name="avatar" novalidate>
+          <label class="form__field form__field_last">
+            <input type="url"
+                   name="avatar-url"
+                   id="avatar-input"
+                   placeholder="Ссылка на картинку"
+                   required
+                   class="form__text-input form__text-input_type_photo-link">
+            <span class="avatar-input-error form__input-error">Проверка</span>
+          </label>
+          <button type="submit"
+                  class="form__submit-button">Сохранить</button>
+        </form>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+    <!-- / Popup: обновление аватара -->
+
+    <!-- Popup: подтверждение удаления -->
+    <div class="popup confirmation-popup">
+      <div class="popup__container popup__container_type_confirmation">
+        <h2 class="popup__title popup__title_type_confirmation">Вы уверены?</h2>
+        <form class="form" name="remove-photo" novalidate>
+          <input type="hidden" name="item-id" value="">
+          <button type="submit"
+                  class="form__submit-button">Да</button>
+        </form>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+    <!-- / Popup: подтверждение удаления -->
+
     <!-- Popup: просмотр фото -->
     <div class="popup image-popup">
       <div class="popup__container popup__container_type_open-photo">
@@ -127,7 +165,10 @@
         </div>
         <div class="photo-grid__caption">
           <h2 class="photo-grid__title"></h2>
-          <button class="photo-grid__like-button" type="button"></button>
+          <div class="likes-counter">
+            <button class="likes-counter__button" type="button"></button>
+            <span class="likes-counter__result">0</span>
+          </div>
         </div>
       </li>
     </template>
