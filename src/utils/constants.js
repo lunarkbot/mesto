@@ -51,7 +51,6 @@ export const API_BASEURL = 'https://mesto.nomoreparties.co/v1/cohort-44';
 // кнопки
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
-export const avatarImage = document.querySelector('.profile__avatar');
 // Поля формы профиля
 export const nameInput = document.querySelector('.form__text-input_type_name');
 export const jobInput = document.querySelector('.form__text-input_type_job');
