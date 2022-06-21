@@ -13,7 +13,6 @@ import {
   initialCards,
   editButton,
   addButton,
-  avatarImage,
   nameInput,
   jobInput,
   API_KEY,
@@ -31,6 +30,7 @@ function handleProfileFormSubmit(values) {
   api.setUserData(values.name, values.job)
     .then(result => {
       userInfo.setUserInfo(result.name, result.about);
+      profilePopup.close();
     })
     .catch((err) => {
       console.log(err);
@@ -39,7 +39,7 @@ function handleProfileFormSubmit(values) {
       profilePopup.renderLoading(false);
     });
 
-  profilePopup.close();
+
 }
 
 
@@ -82,21 +82,20 @@ function handlePhotoClick(name, link) {
 /**
  * Коллбек клика по кнопке "лайк" на карточке
  */
-function handleLikeButtonClick() {
-  const isLiked = this._likeButton.classList.contains('likes-counter__button_checked');
+function handleLikeButtonClick(isLiked, cardId) {
 
   if (isLiked) {
-    api.updateLikes(this._cardId, false)
+    api.updateLikes(cardId, false)
       .then(result => {
-        this._updateLikesCounter(result.likes);
+        this.updateLikesCounter(result.likes);
       })
       .catch((err) => {
         console.log(err);
       });
   } else {
-    api.updateLikes(this._cardId)
+    api.updateLikes(cardId)
       .then(result => {
-        this._updateLikesCounter(result.likes,false);
+        this.updateLikesCounter(result.likes,false);
       })
       .catch((err) => {
         console.log(err);
@@ -108,8 +107,8 @@ function handleLikeButtonClick() {
 /**
  * Коллбек обработчика клика по иконки удаления
  */
-function handleTrashButtonClick() {
-  popupConfirmation.open(this._cardId, this._cardElement);
+function handleTrashButtonClick(cardId, cardElement) {
+  popupConfirmation.open(cardId, cardElement);
 }
 
 
@@ -120,10 +119,9 @@ function handleTrashButtonClick() {
 function handleConfirmationFormSubmit(evt) {
   evt.preventDefault();
 
-  api.deleteCard(this._itemIdElement.value)
+  api.deleteCard(popupConfirmation.getItemId())
     .then(result => {
-      this._itemElement.remove();
-      this._itemElement = null;
+      popupConfirmation.deleteItem();
       popupConfirmation.close();
     })
     .catch((err) => {
@@ -140,7 +138,7 @@ function handleAvatarFormSubmit(values) {
   avatarPopup.renderLoading(true);
   api.setAvatar(values['avatar-url'])
     .then(result => {
-      avatarImage.src = result.avatar;
+      userInfo.setAvatar(result.avatar);
       avatarPopup.close();
     })
     .catch((err) => {
@@ -149,6 +147,12 @@ function handleAvatarFormSubmit(values) {
     .finally(() => {
       avatarPopup.renderLoading(false);
     });
+}
+
+
+function handleAvatarClick() {
+  formValidators['avatar'].resetValidation();
+  avatarPopup.open();
 }
 
 
@@ -214,11 +218,14 @@ const avatarPopup = new PopupWithForm('.avatar-popup', handleAvatarFormSubmit);
 avatarPopup.setEventListeners();
 avatarPopup.enableAnimation();
 
-const userInfo = new UserInfo({
+const userInfo = new UserInfo(
+  {
   userNameSelector: '.profile__name',
   userJobSelector: '.profile__job',
   userAvatarSelector: '.profile__avatar'
-});
+},
+  handleAvatarClick
+);
 
 
 //Включаем валидацию форм
@@ -281,7 +288,3 @@ addButton.addEventListener('click',() => {
   cardPopup.open();
 });
 
-avatarImage.addEventListener('click', () => {
-  formValidators['avatar'].resetValidation();
-  avatarPopup.open();
-});
