@@ -1,7 +1,6 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._popupSubmitButton = this._popup.querySelector('.form__submit-button');
     this._closeButton = this._popup.querySelector('.popup__close-button');
     this._handleEscClose = this._handleEscClose.bind(this);
   }
@@ -22,14 +21,6 @@ export default class Popup {
   close() {
     this._popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
-  }
-
-  renderLoading(isLoading) {
-    if (isLoading) {
-      this._popupSubmitButton.textContent = 'Сохранение...';
-    } else {
-      this._popupSubmitButton.textContent = 'Сохранить';
-    }
   }
 
   // Чтобы избежать эффекта плавного нежелательного исчезания popup'ов

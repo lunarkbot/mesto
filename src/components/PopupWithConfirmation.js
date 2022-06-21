@@ -15,6 +15,15 @@ export default class PopupWithConfirmation extends Popup {
     this._popupForm.addEventListener('submit', this._handleConfirm);
   }
 
+  getItemId() {
+    return this._itemIdElement.value;
+  }
+
+  deleteItem() {
+    this._itemElement.remove();
+    this._itemElement = null;
+  }
+
   open(id, element) {
     this._itemIdElement.value = id;
     this._itemElement = element;

@@ -1,4 +1,5 @@
 export class Card {
+
   constructor(
     cardData,
     {
@@ -13,7 +14,6 @@ export class Card {
     handleLikeButtonClick,
     handleTrashButtonClick
   ) {
-
     this._name = cardData.name;
     this._link = cardData.link;
     this._likes = cardData.likes || [];
@@ -42,13 +42,14 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._likeButton.addEventListener('click', this._handleLikeButtonClick.bind(this));
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeButtonClick(this._isLiked(), this._cardId);
+    });
 
     if (this._trashButton) {
-      this._trashButton.addEventListener(
-        'click',
-        this._handleTrashButtonClick.bind(this)
-      );
+      this._trashButton.addEventListener('click', () => {
+        this._handleTrashButtonClick(this._cardId, this._cardElement);
+      });
     }
 
     this._photoCardImage.addEventListener('click', () => {
@@ -56,11 +57,11 @@ export class Card {
     })
   }
 
-  _updateLikesCounter(likes = this._likes, isSet = true) {
+  updateLikesCounter(likes = this._likes, isSet = true) {
     this._likes = likes;
     this._likeCounter.textContent = this._likes.length;
 
-    if(this._isLiked()) {
+    if(this._isOwnersLike()) {
       this._likeButton.classList.add('likes-counter__button_checked');
     } else {
       this._likeButton.classList.remove('likes-counter__button_checked');
@@ -68,6 +69,10 @@ export class Card {
   }
 
   _isLiked() {
+    return this._likeButton.classList.contains('likes-counter__button_checked');
+  }
+
+  _isOwnersLike() {
     for (let like of this._likes) {
       if (like._id === sessionStorage.getItem('ownerId')) return true;
     }
@@ -78,7 +83,7 @@ export class Card {
     this._photoCardImage.alt = this._name;
     this._photoCardImage.src = this._link;
     this._cardTitle.textContent = this._name;
-    this._updateLikesCounter();
+    this.updateLikesCounter();
 
     if (this._ownerId !== sessionStorage.getItem('ownerId')) {
       this._trashButton.remove();
